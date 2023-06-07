@@ -1,0 +1,157 @@
+<html>
+
+<head>
+
+	<script>
+
+		var senha = 3589
+		var agencia = 0
+		var conta = 0
+		var extrato = 0
+		var saldo = 100.5
+		var saque = 0
+		var deposito = saldo + deposito
+		var transf = 0
+		var cpf = 0
+		var nome = prompt("Qual é o seu nome? ")
+		alert("Olá " + nome + ", é um prazer ter você por aqui!")
+
+		function inicio() {
+
+
+
+			var menu = parseInt(prompt('Selecione uma opção: 1.Saldo 2.Extrato 3.Saque 4.Depósito 5.Transferência 6. Sair'));
+
+
+			switch (menu) {
+				case 1:
+					ver_saldo()
+					break;
+				case 2:
+					ver_extrato()
+					break;
+				case 3:
+					fazer_saque()
+					break;
+				case 4:
+					fazer_deposito()
+					break;
+				case 5:
+					fazer_transferencia()
+					break;
+				case 6:
+					sair();
+					break;
+				default:
+					erro();
+			}
+
+
+		}
+
+		function ver_saldo() {
+			acesso();
+			alert('Seu saldo atual é: ' + saldo);
+			inicio();
+		}
+
+		function ver_extrato() {
+			alert("*************** Extrato *************** \n *************** Banco Tico Tico *************** \n Nome:  " + nome + "\n Cpf:  " + cpf + "\n Conta: " + conta + "\n Agência:  " + agencia + "\n Transferência:  " + transf + "\n Saque:  " + saque + "\n Depósito:  " + deposito)
+
+		}
+
+		function fazer_saque() {
+			acesso();
+			saque = parseFloat(prompt('Qual o valor para saque?'));
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			} else if (saque > saldo || saque <= 0) {
+				alert("Operação não autorizada!")
+				fazer_saque();
+			} else
+				saldo -= saque;
+
+			ver_saldo();
+		}
+
+
+		function fazer_deposito() {
+			acesso();
+			deposito = parseFloat(prompt('Qual o valor para depósito?'));
+			if (isNaN(deposito) || deposito === '') {
+				alert('Por favor, informe um número:');
+				fazer_deposito();
+			} else {
+				saldo += deposito;
+				ver_saldo();
+			}
+		}
+
+		function fazer_transferencia() {
+			acesso();
+			transf = parseFloat(prompt('Qual o valor para transferência?'));
+			if (isNaN(transf) || transf === '' || transf <= 0) {
+				alert('Por favor, informe um número:');
+				inicio();
+			} else if (isNaN(transf) > saldo || transf <= 0) {
+				alert("Operação não autorizada!");
+				inicio();
+			} else {
+				saldo -= transf;
+				agencia = ler_N(prompt("Informe o número da Agência: "));
+				conta = ler_N(prompt("Informe o número da Conta: "));
+				cpf = Number(prompt("Informe o seu cpf: "));
+				alert("Transferência efetuada com sucesso!");
+				ver_saldo();
+				inicio()
+
+
+			}
+
+		}
+
+		function ler_N(mensagem) {
+			var numero;
+			do {
+				numero = Number(prompt(mensagem));
+
+			} while (isNaN(numero));
+			return numero
+		}
+
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			alert(nome + ", foi um prazer ter você por aqui!")
+			if (confirma) {
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+		function acesso() {
+			senha = 3589;
+			x = prompt("Digite a sua senha: ")
+			while (senha != x) {
+				alert("Senha incorreta. Digite novamente.")
+			}
+		}
+
+
+
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
